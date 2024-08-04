@@ -1,0 +1,8 @@
+[Unit]
+Description=Startup service
+
+[Service]
+ExecStart=/usr/local/bin/session-manager
+
+[Install]
+WantedBy=default.target

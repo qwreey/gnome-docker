@@ -1,0 +1,25 @@
+rtkit-daemon
+
+geoclue.service
+
+bluez
+
+upower
+
+udisksd
+
+colord.service
+ProtectHostname=yes is configured
+app-gnome-user\x2ddirs\x2dupdate\x2dgtk-394.scope: PID 394 vanished before we could move it to target cgroup '/system.slice/docker-7f8b0ef833172e5554db3757121ef800b380863e10c3e86c56c9689dae1fb88c.scope/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome-user\x2ddirs\x2dupdate\x2dgtk-394.scope', skipping: No such process
+
+dbus-org.freedesktop.Avahi.service
+
+app-gnome-user\x2ddirs\x2dupdate\x2dgtk-398.scope
+
+No permission to control network connections: Polkit.Error: GDBus.Error:org.freedesktop.PolicyKit1.Error.Failed: Action org.freedesktop.NetworkManager.network-control is not registered
+
+libEGL warning: egl: failed to create dri2 screen
+
+locale
+
+pipewire rtkit

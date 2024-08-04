@@ -1,0 +1,38 @@
+#!/bin/bash
+
+XVFB_ENABLE=true
+DISPLAY=:0
+XVFB_SCREEN=1200x800x24x60
+
+if [ "$XVFB_ENABLE" == "true" ]; then
+    mkdir -p /etc/xvfb/$DISPLAY
+    echo "SCREEN=${XVFB_SCREEN}" >> /etc/xvfb/$DISPLAY/env
+    systemctl --user start xvfb@$DISPLAY.service
+fi
+
+systemctl --user start gnome@$DISPLAY.service
+
+if [ "$VNC_ENABLE" == "true" ]; then
+    systemctl --user start xvnc@$DISPLAY.service
+fi
+
+if [ "$RDP_ENABLE" == "true" ]; then
+    -auth /monitors:0
+    systemctl --user start xrdp@$DISPLAY.service
+fi
+
+#HOST_X11_ENABLE
+# mkdir -p /tmp/.X11-unix
+# ln -s /host/X /tmp/.X11-unix/X1
+
+# systemctl --user start gnome@172.17.0.1:1001.service
+
+# sleep 5
+# export DISPLAY=172.17.0.1:1001
+# RES="1200 800 60"
+# MODELINE="$(cvt $RES | tail -1 | sed -r 's/.*Modeline//')"
+# MODERES="$(echo "$MODELINE" | grep -o -P '(?<=").*(?=")')"
+# MODELINE="$(echo "$MODELINE" | sed -r 's/"(.*)"/\1/')"
+# xrandr --newmode $MODELINE
+# xrandr --addmode default $MODERES
+# xrandr --output default --mode $MODERES

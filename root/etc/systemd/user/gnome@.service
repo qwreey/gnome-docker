@@ -1,9 +1,10 @@
 [Unit]
-Description=Open gnome session in display %I
+Description=Open gnome session with envfile %I
 After=xvfb@.service
 
 [Service]
-Environment="DISPLAY=%I"
+EnvironmentFile=%I
+Environment="DISPLAY=$DISPLAY"
 Environment="XDG_SESSION_TYPE=x11"
 ExecStart=/bin/gnome-session --disable-acceleration-check
 
