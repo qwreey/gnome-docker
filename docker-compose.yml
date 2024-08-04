@@ -1,6 +1,6 @@
 services:
-  arch-docker:
-    container_name: arch-docker
+  gnome-docker:
+    container_name: gnome-docker
     tty: true
     build: .
     # Use systemd cgroup
@@ -14,3 +14,5 @@ services:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /sys/fs/cgroup/system.slice:/sys/fs/cgroup/system.slice:rw
       - ./machine-id:/etc/machine-id:rw
+    ports:
+      - 3389:3389

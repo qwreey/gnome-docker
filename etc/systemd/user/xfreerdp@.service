@@ -1,0 +1,10 @@
+[Unit]
+Description=Run shadow rdp server for display %I
+After=xvfb@%I.service
+
+[Service]
+Environment="DISPLAY=%I"
+ExecStart=freerdp-shadow-cli3
+
+[Install]
+WantedBy=default.target
