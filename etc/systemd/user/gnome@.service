@@ -1,0 +1,10 @@
+[Unit]
+Description=Open gnome session in display %I
+After=xcfb@%I.service
+
+[Service]
+Environment="DISPLAY=%I"
+ExecStart=/bin/gnome-session --disable-acceleration-check --systemd-service
+
+[Install]
+WantedBy=default.target

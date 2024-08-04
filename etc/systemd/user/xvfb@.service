@@ -1,0 +1,9 @@
+[Unit]
+Description=Run Xvfb for display %I
+
+[Service]
+Environment="XVFB_SCREENS=-screen 0 1920x1080x24"
+ExecStart=Xvfb %I $XVFB_SCREENS
+
+[Install]
+WantedBy=default.target

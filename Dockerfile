@@ -18,9 +18,6 @@ RUN --mount=type=cache,target=/var/cache/pacman pacman -Suy --noconfirm gnome gn
 COPY etc /etc
 
 RUN useradd -m -s /bin/bash gnome
-RUN su gnome sh -c 'systemctl --user enable xvfb.service'
-# RUN systemctl enable gnome-remote-desktop.service
-# RUN systemctl set-default multi-user.target
-RUN systemctl enable autologin-gnome@tty1.service
+RUN su gnome sh -c 'systemctl --user enable xvfb@:1.service gnome@:1.service'
 
 ENTRYPOINT /sbin/init quiet loglevel=3
