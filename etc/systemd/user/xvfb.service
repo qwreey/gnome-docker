@@ -1,0 +1,13 @@
+[Unit]
+Description=Run Xvfb for display 0
+After=network.target
+Before=console-getty.service
+
+[Service]
+Environment="XVFB_SCREENS=-screen 0 1920x1080x24"
+Environment="XVFB_FBDIR=/tmp/xvfb"
+ExecStartPre=mkdir -p ${XVFB_FBDIR}
+ExecStart=Xvfb :0 $XVFB_SCREENS -fbdir ${XVFB_FBDIR}
+
+[Install]
+WantedBy=multi-user.target
