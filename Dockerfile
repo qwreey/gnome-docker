@@ -13,11 +13,11 @@ ENTRYPOINT /sbin/init quiet loglevel=3
 
 FROM arch-systemd AS gnome
 
-RUN --mount=type=cache,target=/var/cache/pacman pacman -Suy --noconfirm freerdp2 gnome gnome-remote-desktop xorg-server-xvfb
+RUN --mount=type=cache,target=/var/cache/pacman pacman -Suy --noconfirm tigervnc freerdp2 gnome gnome-remote-desktop xorg-server-xvfb
 
 COPY etc /etc
 
 RUN useradd -m -s /bin/bash gnome
-RUN su gnome sh -c 'systemctl --user enable xvfb@:1.service xfreerdp@:1.service gnome@:1.service'
+RUN su gnome sh -c 'systemctl --user enable xvfb@:1.service xvnc@:1.service xfreerdp@:1.service gnome@:1.service'
 
 ENTRYPOINT /sbin/init quiet loglevel=3

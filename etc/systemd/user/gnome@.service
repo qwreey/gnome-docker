@@ -1,9 +1,10 @@
 [Unit]
 Description=Open gnome session in display %I
-After=xcfb@%I.service
+After=xvfb@.service
 
 [Service]
 Environment="DISPLAY=%I"
+Environment="XDG_SESSION_TYPE=x11"
 ExecStart=/bin/gnome-session --disable-acceleration-check --systemd-service
 
 [Install]

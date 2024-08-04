@@ -16,3 +16,4 @@ services:
       - ./machine-id:/etc/machine-id:rw
     ports:
       - 3389:3389
+      - 5900:5900

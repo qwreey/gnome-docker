@@ -1,10 +1,10 @@
 [Unit]
-Description=Run shadow rdp server for display %I
+Description=Run shadow vnc server for display %I
 After=xvfb@.service
 
 [Service]
 Environment="DISPLAY=%I"
-ExecStart=freerdp-shadow-cli3 -auth /monitors:0
+ExecStart=x0vncserver -SecurityTypes=None
 
 [Install]
 WantedBy=default.target
