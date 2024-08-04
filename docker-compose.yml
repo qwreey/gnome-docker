@@ -1,0 +1,17 @@
+services:
+  arch-docker:
+    container_name: arch-docker
+    #cap_add:
+    #  - SYS_ADMIN
+    tty: true
+    build: .
+    cgroup: host
+    volumes:
+      - type: tmpfs
+        target: /tmp
+      - type: tmpfs
+        target: /run
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup/system.slice:/sys/fs/cgroup/system.slice:rw
+      - ./machine-id:/etc/machine-id:ro
+
