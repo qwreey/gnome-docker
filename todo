@@ -25,3 +25,5 @@ locale
 pipewire rtkit
 
 mock dbus
+
+extension build & apply & change detect => realtime reload

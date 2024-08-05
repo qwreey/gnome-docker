@@ -2,5 +2,6 @@
 /usr/local/bin/envcheck > /etc/gnome-docker/env
 [ "$?" != "0" ] && exit 1
 sed -ri 's/^(.*)$/GD_\1/' /etc/gnome-docker/env
-[ -e '/host' ] && chown gnome /host
+[ -e '/host' ] && chown -R gnome /host
+[ -e '/home/gnome' ] && chown -R gnome /home/gnome
 exec /sbin/init $(cat /etc/gnome-docker/env | grep "^GD_SYSTEMD_CMDLINE=" | sed -r 's/[^=]*=//')

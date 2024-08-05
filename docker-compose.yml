@@ -25,6 +25,9 @@ services:
       # For vnc unix socket
       - ./host:/host:rw
 
+      # Home folder
+      - ./host/home:/home/gnome
+
     # Remote
     ports:
       # for rdp
