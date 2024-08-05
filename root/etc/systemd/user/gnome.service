@@ -5,7 +5,7 @@ After=xvfb.service
 [Service]
 EnvironmentFile=/etc/gnome-docker/env
 Environment="XDG_SESSION_TYPE=x11"
-ExecStart=/bin/gnome-session ${GNOME_SESSION_CMDLINE}
+ExecStart=/usr/local/bin/gnome
 
 [Install]
 WantedBy=default.target

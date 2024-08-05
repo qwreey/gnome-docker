@@ -1,10 +1,10 @@
 [Unit]
-Description=Run shadow vnc server
+Description=Run shadow rdp server
 After=xvfb.service
 
 [Service]
 EnvironmentFile=/etc/gnome-docker/env
-ExecStart=/bin/x0vncserver ${VNC_OPTION}
+ExecStart=/usr/local/bin/rdp
 
 [Install]
 WantedBy=default.target

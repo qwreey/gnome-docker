@@ -1,8 +1,13 @@
 services:
   gnome-docker:
     container_name: gnome-docker
-    tty: true
+    # tty: true
+    hostname: gnome-docker
     build: .
+
+    environment:
+      DEBUG: true
+      SYSTEMD_CMDLINE: 'console=console'
 
     # Use systemd
     cgroup: host
@@ -15,8 +20,6 @@ services:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /sys/fs/cgroup/system.slice:/sys/fs/cgroup/system.slice:rw
       - ./machine-id:/etc/machine-id:rw
-
-      - /tmp/.X11-unix/X1001:/host/X
 
     # Remote
     ports:
