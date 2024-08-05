@@ -1,7 +1,6 @@
 services:
   gnome-docker:
     container_name: gnome-docker
-    # tty: true
     hostname: gnome-docker
     build: .
 
@@ -11,7 +10,7 @@ services:
       VNC_OPTION: -SecurityTypes=None -rfbunixpath /host/vncsocket -rfbport -1
       RDP_ENABLE: false
 
-    # Use systemd
+    # For systemd
     cgroup: host
     volumes:
       # Systemd requirements
@@ -22,6 +21,8 @@ services:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /sys/fs/cgroup/system.slice:/sys/fs/cgroup/system.slice:rw
       - ./machine-id:/etc/machine-id:rw
+
+      # For vnc unix socket
       - ./host:/host:rw
 
     # Remote
