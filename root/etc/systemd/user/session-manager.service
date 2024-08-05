@@ -2,6 +2,7 @@
 Description=Startup service
 
 [Service]
+EnvironmentFile=/etc/gnome-docker/env
 ExecStart=/usr/local/bin/session-manager
 
 [Install]

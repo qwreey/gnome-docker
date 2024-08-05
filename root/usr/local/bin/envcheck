@@ -1,7 +1,0 @@
-
-
--auth /monitors:0
-
-env | grep -E "^(DISPLAY|XVFB_ENABLE|XVFB_GPU|XVFB_SCREEN|VNC_ENABLE|VNC_OPTION|RDP_OPTION)="
-
-

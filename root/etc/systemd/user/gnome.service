@@ -1,0 +1,11 @@
+[Unit]
+Description=Run gnome session
+After=xvfb.service
+
+[Service]
+EnvironmentFile=/etc/gnome-docker/env
+Environment="XDG_SESSION_TYPE=x11"
+ExecStart=/bin/gnome-session ${GNOME_SESSION_CMDLINE}
+
+[Install]
+WantedBy=default.target

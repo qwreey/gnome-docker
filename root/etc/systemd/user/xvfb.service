@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Xvfb
+
+[Service]
+EnvironmentFile=/etc/gnome-docker/env
+ExecStartPre=mkdir -p /tmp/xvfb
+ExecStart=/bin/Xvfb $DISPLAY -screen 0 $XVFB_SCREEN -fbdir /tmp/xvfb -noreset $(XVFB_GPU)
+
+[Install]
+WantedBy=default.target

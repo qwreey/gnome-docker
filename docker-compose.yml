@@ -1,13 +1,24 @@
 services:
   gnome-docker:
-    extends:
-      file: gnome-docker.yml
-      service: gnome-docker
     container_name: gnome-docker
+    tty: true
+    build: .
 
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    # Use systemd
+    cgroup: host
+    volumes:
+      # Systemd requirements
+      - type: tmpfs
+        target: /tmp
+      - type: tmpfs
+        target: /run
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup/system.slice:/sys/fs/cgroup/system.slice:rw
+      - ./machine-id:/etc/machine-id:rw
 
+      - /tmp/.X11-unix/X1001:/host/X
+
+    # Remote
     ports:
       # for rdp
       - 3389:3389

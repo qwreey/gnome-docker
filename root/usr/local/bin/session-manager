@@ -1,9 +1,5 @@
 #!/bin/bash
 
-XVFB_ENABLE=true
-DISPLAY=:0
-XVFB_SCREEN=1200x800x24x60
-
 if [ "$XVFB_ENABLE" == "true" ]; then
     mkdir -p /etc/xvfb/$DISPLAY
     echo "SCREEN=${XVFB_SCREEN}" >> /etc/xvfb/$DISPLAY/env
@@ -25,10 +21,10 @@ fi
 # mkdir -p /tmp/.X11-unix
 # ln -s /host/X /tmp/.X11-unix/X1
 
-# systemctl --user start gnome@172.17.0.1:1001.service
+# systemctl --user start gnome@:1.service
 
 # sleep 5
-# export DISPLAY=172.17.0.1:1001
+# export DISPLAY=:1
 # RES="1200 800 60"
 # MODELINE="$(cvt $RES | tail -1 | sed -r 's/.*Modeline//')"
 # MODERES="$(echo "$MODELINE" | grep -o -P '(?<=").*(?=")')"
