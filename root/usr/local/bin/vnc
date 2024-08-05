@@ -1,0 +1,3 @@
+#!/bin/sh
+export DISPLAY=${GD_DISPLAY}
+exec /bin/x0vncserver $GD_VNC_OPTION

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+/usr/local/bin/envcheck > /etc/gnome-docker/env
+[ "$?" != "0" ] && exit 1
+sed -ri 's/^(.*)$/GD_\1/' /etc/gnome-docker/env
+mkdir -p /var/lib/systemd/linger
+touch /var/lib/systemd/linger/gnome
+exec /sbin/init $(cat /etc/gnome-docker/env | grep "^GD_SYSTEMD_CMDLINE=" | sed -r 's/[^=]*=//')

@@ -1,0 +1,3 @@
+#!/bin/sh
+mkdir -p $GD_XVFB_FBDIR
+exec /bin/Xvfb $GD_DISPLAY -screen 0 $GD_XVFB_SCREEN -fbdir /tmp/xvfb -noreset $GD_XVFB_GPU

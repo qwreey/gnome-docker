@@ -1,20 +1,27 @@
 #!/bin/bash
 
-if [ "$XVFB_ENABLE" == "true" ]; then
-    mkdir -p /etc/xvfb/$DISPLAY
-    echo "SCREEN=${XVFB_SCREEN}" >> /etc/xvfb/$DISPLAY/env
-    systemctl --user start xvfb@$DISPLAY.service
+debug() {
+    [ "$GD_DEBUG" == "true" ] && echo "DEBUG: $1"
+}
+debug "session-manager.service started"
+[ "$GD_DEBUG" == "true" ] && cat /etc/gnome-docker/env
+
+if [ "$GD_XVFB_ENABLE" == "true" ]; then
+    debug "xvfb.service started"
+    systemctl --user start xvfb.service
 fi
 
-systemctl --user start gnome@$DISPLAY.service
+debug "gnome.service started"
+systemctl --user start gnome.service
 
-if [ "$VNC_ENABLE" == "true" ]; then
-    systemctl --user start xvnc@$DISPLAY.service
+if [ "$GD_VNC_ENABLE" == "true" ]; then
+    debug "vnc.service started"
+    systemctl --user start vnc.service
 fi
 
-if [ "$RDP_ENABLE" == "true" ]; then
-    -auth /monitors:0
-    systemctl --user start xrdp@$DISPLAY.service
+if [ "$GD_RDP_ENABLE" == "true" ]; then
+    debug "rdp.service started"
+    systemctl --user start rdp.service
 fi
 
 #HOST_X11_ENABLE

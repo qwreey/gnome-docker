@@ -1,0 +1,3 @@
+#!/bin/sh
+export DISPLAY=${GD_DISPLAY}
+exec /bin/freerdp-shadow-cli3 $GD_RDP_OPTION

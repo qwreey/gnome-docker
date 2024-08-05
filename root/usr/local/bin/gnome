@@ -1,0 +1,3 @@
+#!/bin/sh
+export DISPLAY=${GD_DISPLAY}
+exec /bin/gnome-session $GD_GNOME_SESSION_CMDLINE
