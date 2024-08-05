@@ -1,0 +1,6 @@
+#!/bin/sh
+systemctl mask rtkit-daemon.service
+RUN useradd -m -s /bin/bash gnome
+RUN su gnome sh -c 'systemctl --user enable session-manager.service'
+mkdir -p /var/lib/systemd/linger
+touch /var/lib/systemd/linger/gnome

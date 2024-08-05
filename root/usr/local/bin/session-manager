@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/bin/sh
 debug() {
     [ "$GD_DEBUG" == "true" ] && echo "DEBUG: $1"
 }
@@ -23,19 +22,3 @@ if [ "$GD_RDP_ENABLE" == "true" ]; then
     debug "rdp.service started"
     systemctl --user start rdp.service
 fi
-
-#HOST_X11_ENABLE
-# mkdir -p /tmp/.X11-unix
-# ln -s /host/X /tmp/.X11-unix/X1
-
-# systemctl --user start gnome@:1.service
-
-# sleep 5
-# export DISPLAY=:1
-# RES="1200 800 60"
-# MODELINE="$(cvt $RES | tail -1 | sed -r 's/.*Modeline//')"
-# MODERES="$(echo "$MODELINE" | grep -o -P '(?<=").*(?=")')"
-# MODELINE="$(echo "$MODELINE" | sed -r 's/"(.*)"/\1/')"
-# xrandr --newmode $MODELINE
-# xrandr --addmode default $MODERES
-# xrandr --output default --mode $MODERES
