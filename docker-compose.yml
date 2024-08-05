@@ -8,6 +8,8 @@ services:
     environment:
       DEBUG: true
       SYSTEMD_CMDLINE: 'console=console'
+      VNC_OPTION: -SecurityTypes=None -rfbunixpath /host/vncsocket -rfbport -1
+      RDP_ENABLE: false
 
     # Use systemd
     cgroup: host
@@ -20,6 +22,7 @@ services:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /sys/fs/cgroup/system.slice:/sys/fs/cgroup/system.slice:rw
       - ./machine-id:/etc/machine-id:rw
+      - ./host:/host:rw
 
     # Remote
     ports:
