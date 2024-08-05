@@ -71,8 +71,8 @@ if ! echo "$ENVSTR" | grep "^GNOME_SESSION_CMDLINE="; then
 	echo "GNOME_SESSION_CMDLINE=--disable-acceleration-check"
 fi
 
-if ! echo "$ENVSTR" | grep "^GD_XVFB_FBDIR="; then
-	echo "GD_XVFB_FBDIR=/tmp/xvfb"
+if ! echo "$ENVSTR" | grep "^XVFB_FBDIR="; then
+	echo "XVFB_FBDIR=/tmp/xvfb"
 fi
 
 if ! echo "$ENVSTR" | grep "^DEBUG=" >/dev/null; then
