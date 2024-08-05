@@ -4,7 +4,7 @@ After=xvfb.service
 
 [Service]
 EnvironmentFile=/etc/gnome-docker/env
-ExecStart=/bin/x0vncserver $(VNC_OPTION)
+ExecStart=/bin/x0vncserver ${VNC_OPTION}
 
 [Install]
 WantedBy=default.target

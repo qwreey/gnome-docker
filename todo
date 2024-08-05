@@ -23,3 +23,5 @@ libEGL warning: egl: failed to create dri2 screen
 locale
 
 pipewire rtkit
+
+mock dbus

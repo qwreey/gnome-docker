@@ -4,7 +4,7 @@ After=xvfb.service
 
 [Service]
 EnvironmentFile=/etc/gnome-docker/env
-ExecStart=/bin/freerdp-shadow-cli3 $(RDP_OPTION)
+ExecStart=/bin/freerdp-shadow-cli3 ${RDP_OPTION}
 
 [Install]
 WantedBy=default.target
