@@ -5,10 +5,7 @@ services:
     build: .
 
     environment:
-      DEBUG: true
-      SYSTEMD_CMDLINE: 'console=console'
       VNC_OPTION: -SecurityTypes=None -rfbunixpath /host/vncsocket -rfbport -1
-      RDP_ENABLE: false
 
     # For systemd
     cgroup: host
@@ -24,9 +21,6 @@ services:
 
       # For vnc unix socket
       - ./host:/host:rw
-
-      # Home folder
-      - ./host/home:/home/gnome
 
     # Remote
     ports:
