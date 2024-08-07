@@ -64,7 +64,7 @@ if ! echo "$ENVSTR" | grep "^VNC_OPTION="; then
 fi
 
 if ! echo "$ENVSTR" | grep "^SYSTEMD_CMDLINE="; then
-	echo "SYSTEMD_CMDLINE=quiet" #loglevel=1
+	echo "SYSTEMD_CMDLINE=quiet"
 fi
 
 if ! echo "$ENVSTR" | grep "^GNOME_SESSION_CMDLINE="; then
