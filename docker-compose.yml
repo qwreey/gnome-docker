@@ -17,9 +17,8 @@ services:
         target: /run
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /sys/fs/cgroup/system.slice:/sys/fs/cgroup/system.slice:rw
-      - ./machine-id:/etc/machine-id:rw
 
-      # For vnc unix socket
+      # For vnc unix socket, machine-id
       - ./host:/host:rw
 
     # Remote

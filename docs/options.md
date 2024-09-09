@@ -61,3 +61,8 @@ Default: false
 
 Command-line option for /sbin/init (systemd)
 Default: quiet
+
+## BEFORE_GNOME
+
+Command before gnome execution
+Default: ""

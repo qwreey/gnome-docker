@@ -1,3 +1,4 @@
 #!/bin/sh
 export DISPLAY=${GD_DISPLAY}
+[ ! -z "$GD_BEFORE_GNOME" ] && sh -c "$GD_BEFORE_GNOME"
 exec /bin/gnome-session $GD_GNOME_SESSION_CMDLINE

@@ -4,4 +4,6 @@
 sed -ri 's/^(.*)$/GD_\1/' /etc/gnome-docker/env
 [ -e '/host' ] && chown -R gnome /host
 [ -e '/home/gnome' ] && chown -R gnome /home/gnome
+touch /host/machine-id
+ln -s /host/machine-id /etc/machine-id
 exec /sbin/init $(cat /etc/gnome-docker/env | grep "^GD_SYSTEMD_CMDLINE=" | sed -r 's/[^=]*=//')

@@ -17,6 +17,10 @@ if ! echo "$ENVSTR" | grep "^DISPLAY="; then
 	echo "DISPLAY=:0"
 fi
 
+if ! echo "$ENVSTR" | grep "^BEFORE_GNOME="; then
+	echo "BEFORE_GNOME="
+fi
+
 if ! echo "$ENVSTR" | grep "^XVFB_SCREEN="; then
 	echo "XVFB_SCREEN=1200x800x24x60"
 fi
