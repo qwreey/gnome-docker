@@ -5,20 +5,25 @@ debug() {
 debug "session-manager.service started"
 [ "$GD_DEBUG" == "true" ] && cat /etc/gnome-docker/env
 
-if [ "$GD_XVFB_ENABLE" == "true" ]; then
+if [[ "$GD_XVFB_ENABLE" == "true" ]]; then
     debug "xvfb.service started"
     systemctl --user start xvfb.service
+fi
+
+if [[ "$GD_XRANDR_FIX_ENABLED" == "true" ]]; then
+    debug "xrandr-fix.service started"
+    systemctl --user start xrandr-fix.service
 fi
 
 debug "gnome.service started"
 systemctl --user start gnome.service
 
-if [ "$GD_VNC_ENABLE" == "true" ]; then
+if [[ "$GD_VNC_ENABLE" == "true" ]]; then
     debug "vnc.service started"
     systemctl --user start vnc.service
 fi
 
-if [ "$GD_RDP_ENABLE" == "true" ]; then
+if [[ "$GD_RDP_ENABLE" == "true" ]]; then
     debug "rdp.service started"
     systemctl --user start rdp.service
 fi

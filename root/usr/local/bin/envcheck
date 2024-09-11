@@ -21,12 +21,36 @@ if ! echo "$ENVSTR" | grep "^BEFORE_GNOME="; then
 	echo "BEFORE_GNOME="
 fi
 
-if ! echo "$ENVSTR" | grep "^XVFB_SCREEN="; then
-	echo "XVFB_SCREEN=1200x800x24x60"
+if ! echo "$ENVSTR" | grep "^XVFB_SCREEN_WIDTH="; then
+	echo "XVFB_SCREEN_WIDTH=1200"
+fi
+if ! echo "$ENVSTR" | grep "^XVFB_SCREEN_HEIGHT="; then
+	echo "XVFB_SCREEN_HEIGHT=800"
+fi
+if ! echo "$ENVSTR" | grep "^XVFB_SCREEN_FRAMERATE="; then
+	echo "XVFB_SCREEN_FRAMERATE=60"
 fi
 
 if ! echo "$ENVSTR" | grep "^RDP_OPTION="; then
 	echo "RDP_OPTION=-auth /monitors:0"
+fi
+
+if ! echo "$ENVSTR" | grep "^AUTO_RESTART=" >/dev/null; then
+	echo "AUTO_RESTART=true"
+else
+	YN AUTO_RESTART $AUTO_RESTART
+fi
+
+if ! echo "$ENVSTR" | grep "^XRANDR_FIX_ENABLED=" >/dev/null; then
+	echo "XRANDR_FIX_ENABLED=true"
+else
+	YN XRANDR_FIX_ENABLED $XRANDR_FIX_ENABLED
+fi
+
+if ! echo "$ENVSTR" | grep "^ROOTMODE=" >/dev/null; then
+	echo "ROOTMODE=true"
+else
+	YN ROOTMODE $ROOTMODE
 fi
 
 if ! echo "$ENVSTR" | grep "^XVFB_ENABLE=" >/dev/null; then

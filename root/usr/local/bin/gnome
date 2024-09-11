@@ -1,4 +1,22 @@
 #!/bin/sh
 export DISPLAY=${GD_DISPLAY}
-[ ! -z "$GD_BEFORE_GNOME" ] && sh -c "$GD_BEFORE_GNOME"
-exec /bin/gnome-session $GD_GNOME_SESSION_CMDLINE
+
+run_before() {
+    [ ! -z "$GD_BEFORE_GNOME" ] && sh -c "$GD_BEFORE_GNOME"
+}
+
+if [[ "$GD_AUTO_RESTART" == "true" ]]; then
+    while true; do
+        run_before
+        echo "Open new session"
+        /bin/gnome-session $GD_GNOME_SESSION_CMDLINE
+        EXIT="$?"
+        if [[ "$EXIT" != "0" ]]; then
+            exit "$EXIT"
+        fi
+        sleep 1
+    done
+else
+    run_before
+    exec /bin/gnome-session $GD_GNOME_SESSION_CMDLINE
+fi

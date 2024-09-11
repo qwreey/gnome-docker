@@ -1,0 +1,13 @@
+#!/bin/bash
+
+CVTRESULT="$(cvt $GD_XVFB_SCREEN_WIDTH $GD_XVFB_SCREEN_HEIGHT $GD_XVFB_SCREEN_FRAMERATE | tail -n 1)"
+MODE="$(echo "$CVTRESULT" | sed 's/Modeline "[^"]*" *//')"
+NAME="$(echo "$CVTRESULT" | sed -E 's/Modeline "([^"]*)".*/\1/')"
+
+OUTPUT="screen"
+echo $NAME
+echo "$MODE"
+xrandr --newmode $NAME $MODE
+sleep 0.1
+xrandr --addmode $OUTPUT $NAME
+xrandr --output $OUTPUT --mode $NAME

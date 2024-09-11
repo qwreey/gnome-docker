@@ -13,12 +13,25 @@ Default: :0
 Enable xvfb. If you plan to use host Xorg socket, you can disable this
 Default: true
 
-## XVFB_SCREEN
+## XVFB_SCREEN_WIDTH
 
-Size of screen. value format is WxHxCOLORxFRAME
-Default: 1200x800x24x60
+Width of screen.
+Default: 1200
+
+## XVFB_SCREEN_HEIGHT
+
+Height of screen.
+Default: 800
+
+## XVFB_SCREEN_FRAMERATE
+
+Framerate of screen.
+Default: 60
 
 ## XVFB_FBDIR
+
+xvfb fb dir
+Default: /tmp/xvfb
 
 ## XVFB_GPU
 
@@ -66,3 +79,18 @@ Default: quiet
 
 Command before gnome execution
 Default: ""
+
+## AUTO_RESTART
+
+Auto restart gnome when logout gnome. when gnome restarting, BEFORE_GNOME will re-executed
+Default: true
+
+## XRANDR_FIX_ENABLED
+
+Gnome thinks the xvfb screen has a refresh rate of 0, so we do an xrandr to fix that
+Default: true
+
+## ROOTMODE
+
+Run gnome under root. if disable this, gnome will running under 'gnome' account
+Default: true

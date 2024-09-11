@@ -1,7 +1,0 @@
-#!/bin/sh
-systemctl mask rtkit-daemon.service
-useradd -m -s /bin/bash gnome
-su gnome sh -c 'systemctl --user enable session-manager.service'
-mkdir -p /var/lib/systemd/linger
-touch /var/lib/systemd/linger/gnome
-chmod a+x /usr/local/bin/{rdp,vnc,xvfb,session-manager,gnome}

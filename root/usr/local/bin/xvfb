@@ -1,3 +1,3 @@
 #!/bin/sh
 mkdir -p $GD_XVFB_FBDIR
-exec /bin/Xvfb $GD_DISPLAY -screen 0 $GD_XVFB_SCREEN -fbdir $GD_XVFB_FBDIR -noreset $GD_XVFB_GPU
+exec /bin/Xvfb $GD_DISPLAY -screen 0 "${GD_XVFB_SCREEN_WIDTH}x${GD_XVFB_SCREEN_HEIGHT}x24x${GD_XVFB_SCREEN_FRAMERATE}" -fbdir $GD_XVFB_FBDIR -noreset $GD_XVFB_GPU +extension RANDR

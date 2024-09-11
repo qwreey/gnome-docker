@@ -1,9 +1,33 @@
 #!/bin/sh
+
+# Create env file
 /usr/local/bin/envcheck > /etc/gnome-docker/env
 [ "$?" != "0" ] && exit 1
 sed -ri 's/^(.*)$/GD_\1/' /etc/gnome-docker/env
-[ -e '/host' ] && chown -R gnome /host
-[ -e '/home/gnome' ] && chown -R gnome /home/gnome
-touch /host/machine-id
-ln -s /host/machine-id /etc/machine-id
-exec /sbin/init $(cat /etc/gnome-docker/env | grep "^GD_SYSTEMD_CMDLINE=" | sed -r 's/[^=]*=//')
+get_val() {
+    cat /etc/gnome-docker/env | grep "^$1=" | sed -r 's/[^=]*=//'
+}
+
+# Create user session
+mkdir -p /var/lib/systemd/linger
+if [[ "$(get_val GD_ROOTMODE)" == "true" ]]; then
+    systemctl --user enable session-manager.service
+    touch /var/lib/systemd/linger/root
+else
+    useradd -m -s /bin/bash gnome
+    su gnome sh -c 'systemctl --user enable session-manager.service'
+    touch /var/lib/systemd/linger/gnome
+    [ -e '/host' ] && chown -R gnome /host
+    [ -e '/home/gnome' ] && chown -R gnome /home/gnome
+fi
+
+# Setup machine id
+if [ -e '/host' ]; then
+    [ ! -e /host/machine-id ] && touch /host/machine-id
+    [ -e /etc/machine-id ] && rm /etc/machine-id
+    ln -s /host/machine-id /etc/machine-id
+fi
+
+# Run systemd
+systemctl mask rtkit-daemon.service geoclue.service
+exec /sbin/init $(get_val GD_SYSTEMD_CMDLINE)

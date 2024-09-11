@@ -14,6 +14,4 @@ RUN --mount=type=cache,target=/var/cache/pacman pacman -Suy --noconfirm firefox 
 
 COPY --chown=root:root root /
 
-RUN /usr/local/bin/afterinstall
-
 ENTRYPOINT /usr/local/bin/entrypoint

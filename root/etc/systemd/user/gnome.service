@@ -7,9 +7,5 @@ EnvironmentFile=/etc/gnome-docker/env
 Environment="XDG_SESSION_TYPE=x11"
 ExecStart=/usr/local/bin/gnome
 
-[Service]
-Restart=on-success
-RestartSec=1S
-
 [Install]
 WantedBy=default.target
