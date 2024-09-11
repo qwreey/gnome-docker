@@ -25,10 +25,8 @@ trap 'sigint' SIGINT
 read -d '' INNER << EOF
 # docker up and show journal
 docker compose -f $COMPOSEFILE up -d 2> /dev/null
-docker compose -f $COMPOSEFILE logs --no-log-prefix --follow gnome-docker 2> /dev/null &
-LOG="\$!"
-docker compose -f $COMPOSEFILE exec --no-TTY gnome-docker journalctl -f 2> /dev/null &
-JOU="\$!"
+setsid docker compose -f $COMPOSEFILE logs --no-log-prefix --follow gnome-docker 2> /dev/null
+setsid docker compose -f $COMPOSEFILE exec --no-TTY gnome-docker journalctl -f 2> /dev/null
 
 # take own vnc socket
 while [ ! -e ./host/vncsocket ]; do
@@ -45,8 +43,6 @@ done
 # down
 rm ./host/vncready
 docker compose -f $COMPOSEFILE down --timeout 10 2> /dev/null
-wait \$LOG
-wait \$JOU
 EOF
 touch ./host/running
 sudo bash -c "$INNER" &
