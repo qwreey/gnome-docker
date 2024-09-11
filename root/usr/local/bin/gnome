@@ -1,5 +1,5 @@
 #!/bin/sh
-export DISPLAY=${GD_DISPLAY}
+export DISPLAY="${GD_DISPLAY}"
 
 run_before() {
     [ ! -z "$GD_BEFORE_GNOME" ] && sh -c "$GD_BEFORE_GNOME"

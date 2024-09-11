@@ -1,13 +1,48 @@
 #!/bin/bash
+export DISPLAY=${GD_DISPLAY}
 
-CVTRESULT="$(cvt $GD_XVFB_SCREEN_WIDTH $GD_XVFB_SCREEN_HEIGHT $GD_XVFB_SCREEN_FRAMERATE | tail -n 1)"
-MODE="$(echo "$CVTRESULT" | sed 's/Modeline "[^"]*" *//')"
-NAME="$(echo "$CVTRESULT" | sed -E 's/Modeline "([^"]*)".*/\1/')"
+CVTRESULT="$(cvt $GD_XVFB_SCREEN_WIDTH $GD_XVFB_SCREEN_HEIGHT $GD_XVFB_SCREEN_FRAMERATE)"
+MODELINE="$(echo "$CVTRESULT" | tail -n 1)"
+PCLK="$(echo "$CVTRESULT" | head -n 1 | sed -E 's/.*pclk: ([^ ]*) MHz.*/\1/')"
+MODE="$(echo "$MODELINE" | sed 's/Modeline "[^"]*" *//')"
+NAME="$(echo "$MODELINE" | sed -E 's/Modeline "([^"]*)".*/\1/')"
 
 OUTPUT="screen"
-echo $NAME
-echo "$MODE"
 xrandr --newmode $NAME $MODE
-sleep 0.1
 xrandr --addmode $OUTPUT $NAME
 xrandr --output $OUTPUT --mode $NAME
+
+RATE="$(
+perl - "$MODE" "$PCLK" << EOF
+my @line = split / +/,\$ARGV[0];
+my \$r = (\$ARGV[1] * 1000000) / (\$line[4] * \$line[8]);
+print int(\$r * 1000 + 0.5) / 1000;
+EOF
+)"
+
+mkdir -p "$HOME/.config"
+cat - > "$HOME/.config/monitors.xml" << EOF
+<monitors version="2">
+  <configuration>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>screen</connector>
+          <vendor>unknown</vendor>
+          <product>unknown</product>
+          <serial>unknown</serial>
+        </monitorspec>
+        <mode>
+          <width>$GD_XVFB_SCREEN_WIDTH</width>
+          <height>$GD_XVFB_SCREEN_HEIGHT</height>
+          <rate>$RATE</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+</monitors>
+EOF

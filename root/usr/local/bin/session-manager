@@ -12,7 +12,7 @@ fi
 
 if [[ "$GD_XRANDR_FIX_ENABLED" == "true" ]]; then
     debug "xrandr-fix.service started"
-    systemctl --user start xrandr-fix.service
+    systemctl --user start --wait xrandr-fix.service
 fi
 
 debug "gnome.service started"

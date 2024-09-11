@@ -24,10 +24,10 @@ trap 'sigint' SIGINT
 # Run docker compose
 read -d '' INNER << EOF
 # docker up and show journal
-docker compose -f $COMPOSEFILE up -d
-docker compose -f $COMPOSEFILE logs --follow gnome-docker &
+docker compose -f $COMPOSEFILE up -d 2> /dev/null
+docker compose -f $COMPOSEFILE logs --no-log-prefix --follow gnome-docker 2> /dev/null &
 LOG="\$!"
-docker compose -f $COMPOSEFILE exec --no-TTY gnome-docker journalctl -f &
+docker compose -f $COMPOSEFILE exec --no-TTY gnome-docker journalctl -f 2> /dev/null &
 JOU="\$!"
 
 # take own vnc socket
@@ -44,8 +44,6 @@ done
 
 # down
 rm ./host/vncready
-kill -INT \$LOG
-kill -INT \$JOU
 docker compose -f $COMPOSEFILE down --timeout 10 2> /dev/null
 wait \$LOG
 wait \$JOU
