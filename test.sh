@@ -11,13 +11,9 @@ fi
 
 # Catch ctrl+c
 sigint() {
-    [ -e "./host/running" ] && rm ./host/running
     if [ ! -z "$VNCPID" ]; then
         kill -INT "$VNCPID"
-        wait $VNCPID
     fi
-    wait "$DOCKERPID"
-    exit 0
 }
 trap 'sigint' SIGINT
 
@@ -41,8 +37,8 @@ while [ -e ./host/running ]; do
 done
 
 # down
-rm ./host/vncready
 docker compose -f $COMPOSEFILE down --timeout 10 2> /dev/null
+rm ./host/vncready
 EOF
 touch ./host/running
 sudo bash -c "$INNER" &
@@ -58,6 +54,9 @@ wait "$VNCPID"
 VNCPID=""
 
 # cleanup
+echo -e "\e[0;35mTry graceful shutdown. CTRL+C once more to force shutdown\e[0m"
 rm ./host/running
-wait "$DOCKERPID"
+while [ -e ./host/vncready ]; do
+    sleep 0.1
+done
 exit 0
