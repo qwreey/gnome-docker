@@ -21,20 +21,19 @@ services:
       - /sys/fs/cgroup/system.slice:/sys/fs/cgroup/system.slice:rw
       # For vnc unix socket, machine-id
       - ./host:/host:rw
-
-    # Remote
-    # ports:
+      # Remote
+      # ports:
       # for rdp
       # - 3389:3389
       # for vnc
       # - 5900:5900
 
-    # For gpu
+      # For gpu
     security_opt:
       - seccomp:unconfined
     group_add:
       - video
       - render
     devices:
-      - /dev/dri
+      - /dev/dri/renderD128
       - /dev/kfd

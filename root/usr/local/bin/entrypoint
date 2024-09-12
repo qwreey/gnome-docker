@@ -15,7 +15,7 @@ if [[ "$(get_val GD_ROOTMODE)" == "true" ]]; then
     touch /var/lib/systemd/linger/root
 else
     useradd -m -s /bin/bash gnome
-    usermod -aG video -aG render gnome
+    usermod -aG video,render gnome
     su gnome sh -c 'systemctl --user enable session-manager.service'
     touch /var/lib/systemd/linger/gnome
     [ -e '/host' ] && chown -R gnome /host

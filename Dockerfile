@@ -10,7 +10,7 @@ COPY systemd-docker/root /
 
 FROM arch-systemd AS gnome
 
-RUN --mount=type=cache,target=/var/cache/pacman pacman -Suy --noconfirm firefox xorg-xrandr tigervnc freerdp2 gnome gnome-remote-desktop xorg-server-xvfb
+RUN --mount=type=cache,target=/var/cache/pacman pacman -Suy --noconfirm vulkan-radeon mesa xorg-xrandr tigervnc freerdp2 gnome xorg-server-xvfb
 
 COPY --chown=root:root root /
 
