@@ -62,7 +62,7 @@ wait "$VNCPID"
 VNCPID=""
 
 # cleanup
-echo -e "\e[0;35mTry graceful shutdown. CTRL+C once more to force shutdown\e[0m"
+echo -e "\e[2K\r\e[0;35mTry graceful shutdown. CTRL+C once more to force shutdown\e[0m"
 rm ./host/running
 while [ -e ./host/vncready ]; do
     sleep 0.1

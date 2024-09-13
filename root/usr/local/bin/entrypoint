@@ -3,13 +3,14 @@
 # Create env file
 /usr/local/bin/envcheck > /etc/gnome-docker/env
 [ "$?" != "0" ] && exit 1
+GD_DEBUG="$(cat /etc/gnome-docker/env | grep "^DEBUG=" | sed -r 's/[^=]*=//')"
+[ "$GD_DEBUG" == "true" ] && cat /etc/gnome-docker/env
 sed -ri 's/^(.*)$/GD_\1/' /etc/gnome-docker/env
 get_val() {
     cat /etc/gnome-docker/env | grep "^$1=" | sed -r 's/[^=]*=//'
 }
-GD_DEBUG="$(get_val GD_DEBUG)"
 debug() {
-    [ "$GD_DEBUG" == "true" ] && echo "DEBUG: $1"
+    [ "$GD_DEBUG" == "true" ] && echo "$1"
 }
 
 # Create user session
@@ -29,8 +30,9 @@ else
     touch /var/lib/systemd/linger/gnome
     debug "enabled linger for gnome"
     [ -e '/host' ] && chown -R gnome /host
-    debug "chown host dir to gnome"
-    [ -e '/home/gnome' ] && chown -R gnome /home/gnome
+    debug "chowned host dir to gnome"
+    mkdir -p /home/gnome
+    chown -R gnome /home/gnome
     debug "created home directory for gnome"
 fi
 

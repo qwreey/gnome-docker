@@ -1,9 +1,8 @@
 #!/bin/sh
 debug() {
-    [ "$GD_DEBUG" == "true" ] && echo "DEBUG: $1"
+    [ "$GD_DEBUG" == "true" ] && echo "$1"
 }
 debug "session-manager.service started"
-[ "$GD_DEBUG" == "true" ] && cat /etc/gnome-docker/env
 
 if [[ "$GD_XVFB_ENABLE" == "true" ]]; then
     debug "xvfb.service started"
