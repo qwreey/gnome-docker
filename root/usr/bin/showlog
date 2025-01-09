@@ -6,8 +6,31 @@ while (<>) {
     if (/^[^ ]+ [0-9]+ [0-9]{2}+:[0-9]{2}+:[0-9]{2}+ [^ ]+ ([^ ]+): (.*)$/) {
         \$msg = \$2; \$service = \$1;
         \$style = "cyan";
-        \$style = "bold cyan" if \$service =~ /^gnome-shell/;
-        print colored(\$service, \$style),": ",\$msg,\$/;
+        \$style = "bold cyan" if \$service =~ /^gnome-shell\\\\[/;
+        if (\$msg =~ /^mod.rt: Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Operation not supported\$/) {}
+        elsif (\$msg =~ /^Could not activate remote peer '.*': activation request failed: unit is masked\$/) {}
+        elsif (\$msg =~ /^Activation request for '.*' failed: The systemd unit '.*' is masked\\\\.\$/) {}
+        elsif (\$msg =~ /^Failed to fetch .* parameters: GDBus\\\\.Error:org\\\\.freedesktop\\\\.DBus\\\\.Error\\\\.ServiceUnknown: The name is not activatable\$/) {}
+        elsif (\$msg =~ /^mod.rt: RTKit error: org\\\\.freedesktop\\\\.DBus\\\\.Error\\\\.NameHasNoOwner\$/) {}
+        elsif (\$msg =~ /^mod.rt: RTKit does not give us .*, using .*\$/) {}
+        elsif (\$msg =~ /^Failed to load .* property: GDBus.Error:org\\\\.freedesktop\\\\.DBus\\\\.Error\\\\.NameHasNoOwner: Could not activate remote peer '.*': activation request failed: unit is masked\$/) {}
+        elsif (\$msg =~ /^Activation request for 'org\\\\.freedesktop\\\\.home.*' failed: The systemd unit 'dbus-org\\\\.freedesktop\\\\.home.*\\\\.service' could not be found\\\\.\$/) {}
+        elsif (\$msg =~ /^Error looking up permission: GDBus\\\\.Error:org\\\\.freedesktop\\\\.portal\\\\.Error\\\\.NotFound: No entry for geolocation\$/) {}
+        elsif (\$msg =~ /^No logind found: GDBus\\\\.Error:org\\\\.freedesktop\\\\.DBus\\\\.Error\\\\.UnknownObject: Unknown object '\\\\/org\\\\/freedesktop\\\\/login1\\\\/session\\\\/auto'\\\\.\$/) {}
+        elsif (\$msg =~ /^Could not open rfkill device: Could not open RFKILL control device, please verify your installation\$/) {}
+        elsif (\$msg =~ /^Failed to find systemd session id: No data available\$/) {}
+        elsif (\$msg =~ /^fuse: device not found, try 'modprobe fuse' first\$/) {}
+        elsif (\$msg =~ /^error: fuse init failed: Can't mount path \\\\/run\\\\/user\\\\/.*\\\\/doc\$/) {}
+        elsif (\$msg =~ /^Unable to inhibit keypresses: GDBus\\\\.Error:org\\\\.freedesktop\\\\.DBus\\\\.Error\\\\.AccessDenied: Permission denied\$/) {}
+        elsif (\$msg =~ /^gnome-session-binary.*: WARNING: Could not retrieve current screensaver active state: GDBus\\\\.Error:org\\\\.freedesktop\\\\.DBus\\\\.Error\\\\.ServiceUnknown: The name is not activatable\$/) {}
+        elsif (\$msg =~ /^WARNING: Could not retrieve current screensaver active state: GDBus\\\\.Error:org\\\\.freedesktop\\\\.DBus\\\\.Error\\\\.ServiceUnknown: The name is not activatable\$/) {}
+        elsif (\$msg =~ /^Failed to create colord device for 'xrandr-screen': failed to obtain org\\\\.freedesktop\\\\.color-manager\\\\.create-device auth\$/) {}
+        elsif (\$msg =~ /^GDBus\\\\.Error:org\\\\.freedesktop\\\\.DBus\\\\.Error\\\\.NameHasNoOwner: Could not activate remote peer 'org\\\\.freedesktop\\\\.GeoClue2': activation request failed: unit is masked\$/) {}
+        elsif (\$msg =~ /^GDBus\\\\.Error:org\\\\.freedesktop\\\\.DBus\\\\.Error\\\\.NameHasNoOwner: Could not activate remote peer 'org\\\\.freedesktop\\\\.GeoClue2': activation request failed: unit is masked\$/) {}
+        elsif (\$msg =~ /^Error registering session with GDM: GDBus\\\\.Error:org\\\\.freedesktop\\\\.DBus\\\\.Error\\\\.ServiceUnknown: The name is not activatable\$/) {}
+        elsif (\$msg =~ /^gnome-session-binary.*: WARNING: Could not get session id for session\\\\. Check that logind is properly installed and pam_systemd is getting used at login\\\\.\$/) {}
+        elsif (\$msg =~ /^WARNING: Could not get session id for session\\\\. Check that logind is properly installed and pam_systemd is getting used at login\\\\.\$/) {}
+        else { print colored(\$service, \$style),": ",\$msg,\$/; }
     } else {
         print;
     }

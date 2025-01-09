@@ -18,6 +18,9 @@ fi
 sigint() {
     if [ ! -z "$VNCPID" ]; then
         kill -INT "$VNCPID"
+    else
+        rm $HOSTPATH/vncready $HOSTPATH/stopped $HOSTPATH/stopping
+        exit 0
     fi
 }
 trap 'sigint' SIGINT
@@ -43,6 +46,10 @@ setsid docker compose -f "$COMPOSEFILE" --ansi=always exec --no-TTY gnome-docker
 
 # take own vnc socket
 while [ ! -e $HOSTPATH/vncsocket ]; do
+    if [ ! -e $HOSTPATH/vncready ]; then
+        docker compose -f $COMPOSEFILE down --timeout 10 2> /dev/null
+        exit
+    fi
     sleep 0.1
 done
 chown $(whoami) $HOSTPATH/vncsocket
@@ -59,13 +66,18 @@ sudo bash -c "$INNER" -- "$INNER_LOGS_PERL" &
 
 # wait for vnc ready, then show viewer
 cat $HOSTPATH/vncready > /dev/null
-vncviewer \
-    NoJPEG=1 \
-    CompressLevel=0 \
-    PreferredEncoding=Raw \
-    SecurityTypes=None \
-    ./host/vncsocket 2> >(perl -e "use Term::ANSIColor;\$coloredstr=colored(\"vnc\", \"blue\") . \": \";while(<>){print \$coloredstr,\$_;select()->flush();}") &
-VNCPID="$!"
+if [[ "true" == "$NOVIEWER" ]]; then
+    sleep infinity &
+    VNCPID="$!"
+else
+    vncviewer \
+        NoJPEG=1 \
+        CompressLevel=0 \
+        PreferredEncoding=Raw \
+        SecurityTypes=None \
+        ./host/vncsocket 2> >(perl -e "use Term::ANSIColor;\$coloredstr=colored(\"vnc\", \"blue\") . \": \";while(<>){print \$coloredstr,\$_;select()->flush();}") &
+    VNCPID="$!"
+fi
 wait "$VNCPID"
 VNCPID=""
 echo > $HOSTPATH/stopping

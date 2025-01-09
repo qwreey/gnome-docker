@@ -4,13 +4,13 @@ STOPSIGNAL SIGRTMIN+3
 ENV container docker
 
 RUN --mount=type=cache,target=/var/cache/pacman pacman -Suy --noconfirm
-RUN systemctl mask systemd-machine-id-commit.service systemd-remount-fs.service
+RUN systemctl mask systemd-machine-id-commit.service systemd-remount-fs.service systemd-homed.service
 RUN sed 's/#LogLevel=info/LogLevel=warning/' -i /etc/systemd/system.conf
 COPY systemd-docker/root /
 
 FROM arch-systemd AS gnome
 
-RUN --mount=type=cache,target=/var/cache/pacman pacman -Suy --noconfirm playerctl dconf-editor d-spy firefox vulkan-radeon mesa xorg-xrandr tigervnc freerdp2 gnome xorg-server-xvfb
+RUN --mount=type=cache,target=/var/cache/pacman pacman -Suy --noconfirm avahi ibus playerctl dconf-editor d-spy firefox vulkan-radeon mesa xorg-xrandr tigervnc freerdp2 gnome xorg-server-xvfb
 
 COPY --chown=root:root root /
 
