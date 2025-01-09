@@ -5,6 +5,10 @@ run_before() {
     [ ! -z "$GD_BEFORE_GNOME" ] && sh -c "$GD_BEFORE_GNOME"
 }
 
+gsettings set org.gnome.shell disable-extension-version-validation "true"
+gsettings set org.gnome.shell welcome-dialog-last-shown-version "1000"
+gnome-extensions enable devtools@qwreey
+
 if [[ "$GD_AUTO_RESTART" == "true" ]]; then
     while true; do
         run_before

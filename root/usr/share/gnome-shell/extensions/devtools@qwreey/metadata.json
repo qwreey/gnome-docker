@@ -1,0 +1,7 @@
+{
+  "description": "gnome development tools",
+  "name": "devtools",
+  "url": "https://github.com/qwreey",
+  "shell-version": ["47"],
+  "uuid": "devtools@qwreey"
+}
